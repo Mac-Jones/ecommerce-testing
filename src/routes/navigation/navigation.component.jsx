@@ -1,5 +1,5 @@
 import { Fragment, useContext } from 'react';
-import { Outlet, Link } from 'react-router-dom';
+import { Outlet } from 'react-router-dom';
 
 import NavLogo from '../../assets/mj-logo-primary-transparent.png';
 import CartIcon from '../../components/cart-icon/cart-icon.component';
