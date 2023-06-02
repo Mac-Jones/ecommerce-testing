@@ -9,7 +9,16 @@ import {
 	onAuthStateChanged,
 } from 'firebase/auth';
 
-import { getFirestore, doc, setDoc, getDoc } from 'firebase/firestore';
+import {
+	getFirestore,
+	doc,
+	setDoc,
+	getDoc,
+	collection,
+	writeBatch,
+	query,
+	getDocs,
+} from 'firebase/firestore';
 
 const firebaseConfig = {
 	apiKey: 'AIzaSyDbdmzqZWkhGEshnv8UNnSkrbB8dyhQcEw',
@@ -34,6 +43,50 @@ export const signInWithGooglePopup = () =>
 
 export const db = getFirestore();
 
+// add products to firebase
+export const addCollectionAndDocuments = async (
+	collectionKey,
+	objectsToAdd
+) => {
+	const collectionRef = collection(db, collectionKey);
+	const batch = writeBatch(db);
+
+	objectsToAdd.forEach((object) => {
+		const docRef = doc(collectionRef, object.title.toLowerCase());
+		batch.set(docRef, object);
+	});
+
+	await batch.commit();
+};
+
+// get products from firebase
+export const getCategoriesAndDocuments = async () => {
+	const collectionRef = collection(db, 'categories');
+	const q = query(collectionRef);
+
+	const querySnapshot = await getDocs(q);
+	const categoryMap = querySnapshot.docs.reduce((acc, docSnapshot) => {
+		const { title, items } = docSnapshot.data();
+		acc[title.toLowerCase()] = items;
+		return acc;
+	}, {});
+
+	return categoryMap;
+};
+
+// this was the structure that building from getCategoriesAndDocuments function
+/*
+{
+	vape: {
+		title: 'Hats',
+		items: [
+			{},
+		]
+	}
+}
+ */
+
+// add user to firebase
 // When pop-up successfully signed-in create that user
 export const createUserDocumentFromAuth = async (
 	userAuth,
