@@ -20,7 +20,6 @@ import {
 } from './navigation.styles';
 
 const Navigation = () => {
-	// const { currentUser } = useContext(UserContext);
 	const currentUser = useSelector(selectCurrentUser);
 	const { isCartOpen } = useContext(CartContext);
 

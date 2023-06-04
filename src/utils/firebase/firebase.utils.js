@@ -65,26 +65,16 @@ export const getCategoriesAndDocuments = async () => {
 	const q = query(collectionRef);
 
 	const querySnapshot = await getDocs(q);
-	const categoryMap = querySnapshot.docs.reduce((acc, docSnapshot) => {
-		const { title, items } = docSnapshot.data();
-		acc[title.toLowerCase()] = items;
-		return acc;
-	}, {});
+	return querySnapshot.docs.map((docSnapshot) => docSnapshot.data());
 
-	return categoryMap;
+	// const categoryMap = querySnapshot.docs.reduce((acc, docSnapshot) => {
+	// 	const { title, items } = docSnapshot.data();
+	// 	acc[title.toLowerCase()] = items;
+	// 	return acc;
+	// }, {});
+
+	// return categoryMap;
 };
-
-// this was the structure that building from getCategoriesAndDocuments function
-/*
-{
-	vape: {
-		title: 'Hats',
-		items: [
-			{},
-		]
-	}
-}
- */
 
 // add user to firebase
 // When pop-up successfully signed-in create that user
