@@ -27,7 +27,7 @@ const App = () => {
 		});
 
 		return unsubscribe;
-	}, []);
+	}, [dispatch]); // add dispatch to prevent error. Remove it when building
 	return (
 		<Routes>
 			<Route path='/' element={<Navigation />}>
