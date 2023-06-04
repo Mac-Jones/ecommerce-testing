@@ -66,14 +66,6 @@ export const getCategoriesAndDocuments = async () => {
 
 	const querySnapshot = await getDocs(q);
 	return querySnapshot.docs.map((docSnapshot) => docSnapshot.data());
-
-	// const categoryMap = querySnapshot.docs.reduce((acc, docSnapshot) => {
-	// 	const { title, items } = docSnapshot.data();
-	// 	acc[title.toLowerCase()] = items;
-	// 	return acc;
-	// }, {});
-
-	// return categoryMap;
 };
 
 // add user to firebase
@@ -87,7 +79,6 @@ export const createUserDocumentFromAuth = async (
 	const userDocRef = doc(db, 'users', userAuth.uid);
 
 	const userSnapshot = await getDoc(userDocRef);
-	console.log(userSnapshot.exists());
 
 	if (!userSnapshot.exists()) {
 		const { displayName, email } = userAuth;
