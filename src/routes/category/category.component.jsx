@@ -5,13 +5,18 @@ import ProductCard from '../../components/product-card/product-card.component';
 
 import { useParams } from 'react-router-dom';
 
-import { selectCategoriesMap } from '../../store/categories/categories.selector';
+import {
+	selectCategoriesMap,
+	selectIsCategoriesLoading,
+} from '../../store/categories/categories.selector';
 
 import './category.styles.scss';
+import Spinner from '../../components/spinner/spinner.component';
 
 const Category = () => {
 	const { productCategory } = useParams();
 	const categoriesMap = useSelector(selectCategoriesMap);
+	const isLoading = useSelector(selectIsCategoriesLoading);
 	const [products, setProducts] = useState(categoriesMap[productCategory]);
 
 	useEffect(() => {
@@ -21,12 +26,16 @@ const Category = () => {
 	return (
 		<Fragment>
 			<h2 className='title'>{productCategory}</h2>
-			<div className='category-container'>
-				{products &&
-					products.map((product) => (
-						<ProductCard key={product.id} product={product} />
-					))}
-			</div>
+			{isLoading ? (
+				<Spinner />
+			) : (
+				<div className='category-container'>
+					{products &&
+						products.map((product) => (
+							<ProductCard key={product.id} product={product} />
+						))}
+				</div>
+			)}
 		</Fragment>
 	);
 };
