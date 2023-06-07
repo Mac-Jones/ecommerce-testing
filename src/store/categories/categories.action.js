@@ -15,7 +15,7 @@ export const fetchCategoriesSuccess = (categoriesArray) =>
 export const fetchCategoriesFailed = (error) =>
 	createAction(CATEGORIES_ACTION_TYPES.FETCH_CATEGORIES_FAILED, error);
 
-//Thunk. Function that returns a function
+//Thunk. Function that returns a function, instead of plain action objects
 export const fetchCategoriesAsync = () => async (dispatch) => {
 	dispatch(fetchCategoriesStart());
 
