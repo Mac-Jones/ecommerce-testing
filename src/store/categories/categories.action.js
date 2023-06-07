@@ -1,8 +1,6 @@
 import { createAction } from '../../utils/reducer/reducer.utils';
 import { CATEGORIES_ACTION_TYPES } from './categories.types';
 
-import { getCategoriesAndDocuments } from '../../utils/firebase/firebase.utils';
-
 export const fetchCategoriesStart = () =>
 	createAction(CATEGORIES_ACTION_TYPES.FETCH_CATEGORIES_START);
 
@@ -16,13 +14,13 @@ export const fetchCategoriesFailed = (error) =>
 	createAction(CATEGORIES_ACTION_TYPES.FETCH_CATEGORIES_FAILED, error);
 
 //Thunk. Function that returns a function, instead of plain action objects
-export const fetchCategoriesAsync = () => async (dispatch) => {
-	dispatch(fetchCategoriesStart());
+// export const fetchCategoriesAsync = () => async (dispatch) => {
+// 	dispatch(fetchCategoriesStart());
 
-	try {
-		const categoriesArray = await getCategoriesAndDocuments();
-		dispatch(fetchCategoriesSuccess(categoriesArray));
-	} catch (error) {
-		dispatch(fetchCategoriesFailed(error));
-	}
-};
+// 	try {
+// 		const categoriesArray = await getCategoriesAndDocuments();
+// 		dispatch(fetchCategoriesSuccess(categoriesArray));
+// 	} catch (error) {
+// 		dispatch(fetchCategoriesFailed(error));
+// 	}
+// };
