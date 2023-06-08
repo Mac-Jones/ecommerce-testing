@@ -9,6 +9,7 @@ import {
 
 import { CATEGORIES_ACTION_TYPES } from './categories.types';
 
+// this is thunk before I use saga
 // export const fetchCategoriesAsync = () => async (dispatch) => {
 // 	dispatch(fetchCategoriesStart());
 
