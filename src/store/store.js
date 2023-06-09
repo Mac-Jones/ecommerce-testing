@@ -1,40 +1,40 @@
-import { compose, createStore, applyMiddleware } from 'redux';
-import { persistStore, persistReducer } from 'redux-persist';
-import storage from 'redux-persist/lib/storage';
+// import { compose, createStore, applyMiddleware } from 'redux';
+import { configureStore } from '@reduxjs/toolkit';
+// import { persistStore, persistReducer } from 'redux-persist';
+// import storage from 'redux-persist/lib/storage';
 import logger from 'redux-logger';
-import thunk from 'redux-thunk';
 
+// import { rootReducer } from './root-reducer';
 import { rootReducer } from './root-reducer';
 
-const persistConfig = {
-	key: 'root',
-	storage,
-	whitelist: ['cart'],
-};
+// const middleWares = [process.env.NODE_ENV !== 'production' && logger].filter(
+// 	Boolean
+// );
+const middleWares = [process.env.NODE_ENV !== 'production' && logger].filter(
+	Boolean
+);
 
-const persistedReducer = persistReducer(persistConfig, rootReducer);
+// const composeEnhancer =
+// 	(process.env.NODE_ENV !== 'production' &&
+// 		window &&
+// 		window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__) ||
+// 	compose;
 
-const middleWares = [
-	process.env.NODE_ENV !== 'production' && logger,
-	thunk,
-].filter(Boolean);
+// const persistConfig = {
+// 	key: 'root',
+// 	storage,
+// 	blacklist: ['user'],
+// };
 
-// concept of redux-thunk
-// const thunkMiddleware = (store) => (next) => (action) => {
-// 	if(typeof(action) === 'function') {
-// 		action(dispatch)
-// 	}
-// }
+// const persistedReducer = persistReducer(persistConfig, rootReducer);
 
-const composeEnhancer =
-	(process.env.NODE_ENV !== 'production' &&
-		window &&
-		window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__) ||
-	compose;
+// // the previos one is only "compose" without redux dev tools
+// const composedEnhancer = composeEnhancer(applyMiddleware(...middleWares));
 
-// the previos one is only "compose" without redux dev tools
-const composedEnhancer = composeEnhancer(applyMiddleware(...middleWares));
+// export const store = createStore(persistedReducer, undefined, composedEnhancer);
+export const store = configureStore({
+	reducer: rootReducer,
+	middleware: (haha) => haha().concat(middleWares),
+});
 
-export const store = createStore(persistedReducer, undefined, composedEnhancer);
-
-export const persistor = persistStore(store);
+// export const persistor = persistStore(store);
