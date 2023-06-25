@@ -4,7 +4,15 @@ import { CategoriesState } from './categories.reducer';
 
 import { CategoryMap } from './categories.types';
 
-export const selectCategoryReducer = (state): CategoriesState =>
+// Replace `AppSliceState` with the actual type representing your categories slice state.
+type AppSliceState = CategoriesState;
+
+type AppState = {
+	categories: AppSliceState;
+	// Other slices of the application state...
+};
+
+export const selectCategoryReducer = (state: AppState): CategoriesState =>
 	state.categories;
 
 export const selectCategories = createSelector(
