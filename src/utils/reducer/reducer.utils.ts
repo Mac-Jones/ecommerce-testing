@@ -20,8 +20,6 @@ export function withMatcher(actionCreator: Function) {
 	return Object.assign(actionCreator, {
 		type,
 		match(action: AnyAction) {
-			console.log(action);
-
 			return action.type === type;
 		},
 	});
